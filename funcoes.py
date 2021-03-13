@@ -88,6 +88,31 @@ def bicubica_reducao(imagem):
     return nova_imagem
 
 
+def bicubico_ampliacao(imagem):
+    # Amplia a imagem usando a interpolação bicubica
+    nova_imagem = cria_nova_imagem(imagem.shape[0] * 2, imagem.shape[1] * 2)
+
+    for i in range(imagem.shape[0]):
+        for j in range(imagem.shape[1]):
+            nova_imagem[i + i, j + j] = imagem[i, j]
+
+    return nova_imagem
+
+
+def bilinear_reducao(imagem):
+    # Reduz a imagem usando a interpolação bilinear
+    nova_imagem = cria_nova_imagem(imagem.shape[0] / 2, imagem.shape[1] / 2)
+
+    for i in range(nova_imagem.shape[0]):
+        for j in range(nova_imagem.shape[1]):
+            valor = int(imagem[i + i, j + j]) + int(imagem[i + i, j + j + 1])
+            valor += int(imagem[i + i + 1, j + j]) + int(imagem[i + i + 1, j + j + 1])
+            valor /= 4
+            nova_imagem[i, j] = valor
+
+    return nova_imagem
+
+
 def bilinear_ampliacao(imagem):
     # Amplia a imagem usando a interpolação bilinear
     nova_imagem = cria_nova_imagem(imagem.shape[0] * 2, imagem.shape[1] * 2)
