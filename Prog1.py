@@ -1,9 +1,6 @@
-import funcoes as funcao
+import interpolacao as funcao
 import cv2 as cv
-import numpy as np
-import matplotlib.pyplot as plt
-from numpy import uint8
-import os
+import filtros as filtro
 
 
 def dec_int():
