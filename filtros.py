@@ -8,6 +8,8 @@ import numpy as np
 As quatro máscaras que serão utilizadas para o filtro Laplaciano:
     Centro negativo: remove bordas exteriores
     Centro positivo: remove bordas interiores
+    Oito:
+        Inclusão da leitura da diagonal da imagem
 """
 quatro_negativo = [0, 1, 0], [1, -4, 1], [0, 1, 0]
 quatro_positivo = [0, -1, 0], [-1, 4, -1], [0, -1, 0]
@@ -25,12 +27,11 @@ def imprime_imagem(titulo, imagem):
 def cria_nova_imagem(altura, largura):
     # Cria uma nova imagem vazia com base nas dimensões passadas
     imagem = np.empty((altura, largura, 3), np.uint8)
-    imagem[:] = 255
     return imagem
 
 
 def calcula_valor(imagem, mascara, x, y):
-    """Define os valores de pixel que serão utilizados no cálculo"""
+    # Define os valores de pixel que serão utilizados no cálculo
     valores = []
     mi = -1
 
@@ -47,7 +48,9 @@ def calcula_valor(imagem, mascara, x, y):
     for i in range(len(valores)):
         valor += np.uint8(valores[i])
     # valor /= 9
+    # TODO
     valor = np.true_divide(valor, 9)
+    # TODO
     valor += 255
     if np.any(valor < 0):
         return 0
