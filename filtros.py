@@ -1,16 +1,23 @@
+from __future__ import print_function
+from __future__ import division
+
 import cv2 as cv
 import numpy as np
 
-# as quatro máscaras que serão utilizadas
+"""
+As quatro máscaras que serão utilizadas para o filtro Laplaciano:
+    Centro negativo: remove bordas exteriores
+    Centro positivo: remove bordas interiores
+"""
 quatro_negativo = [0, 1, 0], [1, -4, 1], [0, 1, 0]
 quatro_positivo = [0, -1, 0], [-1, 4, -1], [0, -1, 0]
 oito_negativo = [1, 1, 1], [1, -8, 1], [1, 1, 1]
 oito_positivo = [-1, -1, -1], [-1, 8, -1], [-1, -1, -1]
 
 
-def imprime_imagem(tipo, imagem):
+def imprime_imagem(titulo, imagem):
     # Monta a imagem novamente e imprime
-    cv.imshow(tipo, imagem)
+    cv.imshow(titulo, imagem)
     cv.waitKey(0)
     cv.destroyAllWindows()
 
@@ -22,19 +29,8 @@ def cria_nova_imagem(altura, largura):
     return imagem
 
 
-def laplaciano(imagem, mascara):
-    # Executa a filtragem laplaciana na imagem
-    nova_imagem = cria_nova_imagem(imagem.shape[0], imagem.shape[1])
-
-    for i in range(imagem.shape[0]):
-        for j in range(imagem.shape[1]):
-            nova_imagem[i, j] = calcula_valor(imagem, mascara, i, j)
-
-    return nova_imagem
-
-
 def calcula_valor(imagem, mascara, x, y):
-    # Define os valores de pixel que serão utilizados no cálculo
+    """Define os valores de pixel que serão utilizados no cálculo"""
     valores = []
     mi = -1
 
@@ -49,9 +45,38 @@ def calcula_valor(imagem, mascara, x, y):
 
     valor = 0
     for i in range(len(valores)):
-        valor += valores[i]
-    valor /= 9
+        valor += np.uint8(valores[i])
+    # valor /= 9
+    valor = np.true_divide(valor, 9)
     valor += 255
-    if valor < 0:
+    if np.any(valor < 0):
         return 0
     return valor
+
+
+def laplaciano(imagem, mascara):
+    # Executa a filtragem laplaciana na imagem
+    nova_imagem = cria_nova_imagem(imagem.shape[0], imagem.shape[1])
+
+    for i in range(imagem.shape[0]):
+        for j in range(imagem.shape[1]):
+            nova_imagem[i, j] = calcula_valor(imagem, mascara, i, j)
+
+    return nova_imagem
+
+
+def gradiente(imagem):
+    # Cálcula o aguçamento usando gradiente
+    nova_imagem = cria_nova_imagem(imagem.shape[0], imagem.shape[1])
+
+    for i in range(1, imagem.shape[0] - 2):
+        for j in range(1, imagem.shape[1] - 2):
+            gx = imagem[i + 1, j - 1] + 2 * imagem[i + 1, j] + imagem[i + 1, j + 1]
+            gx -= imagem[i - 1, j - 1] + 2 * imagem[i - 1, j] + imagem[i - 1, j + 1]
+
+            gy = imagem[i - 1, j + 1] + 2 * imagem[i, j + 1] + imagem[i + 1, j + 1]
+            gy -= imagem[i - 1, j - 1] + 2 * imagem[i, j - 1] + imagem[i + 1, j - 1]
+
+            nova_imagem[i, j] = gx
+
+    return nova_imagem
