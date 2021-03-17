@@ -96,7 +96,7 @@ def edge_improv():
     sub_menu()
 
 
-def menu():
+def menu_ques1():
     print('======== MENU DE OPÇÕES ========')
     print('========    QUESTÃO 1   ========')
     print('1 - Interpolação por vizinho mais próximo')
@@ -117,5 +117,49 @@ def menu():
         print('Opção inválida!')
 
 
+def menu_quest2():
+    # imagem_car = cv.imread('imagens/car.png')
+    # imagem_crowd = cv.imread('imagens/crowd.png')
+    # imagem_university = cv.imread('imagens/university.png')
+    opcao = True
+    while opcao:
+        print('Imagens disponiveis: car.png / crowd.png / university.png')
+        imagem_escolhida = input('Escolha uma das imagens disponiveis (digite o nome da imagem junto com a extensão): ')
+        while imagem_escolhida != 'car.png' and imagem_escolhida != 'crowd.png' and imagem_escolhida != 'university.png':
+            print('Imagem digitada inválida!')
+            imagem_escolhida = input(
+                'Digite novamente sua escolha de imagem (digite o nome da imagem junto com a extensão): ')
+
+        imagem = cv.imread('imagens/' + imagem_escolhida)
+        # loop em vários valores de gama
+        for gama in np.arange(0.0, 3.5, 0.5):
+            # ignorar quando gama for 1 (não haverá alteração na imagem)
+            if gama == 1:
+                continue
+            # aplica correção de gama e mostra as imagens
+            gama = gama if gama > 0 else 0.1
+            adjusted = filtro.ajuste_gama(imagem, gama=gama)
+            cv.putText(adjusted, "g={}".format(gama), (10, 30),
+                       cv.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 3)
+            cv.imshow("Imagens", np.hstack([imagem, adjusted]))
+            cv.waitKey(0)
+        opcao = input('Deseja ver outra imagem?: ')
+        if opcao != 'S' and opcao != 'Sim' and opcao != 'sim' and opcao != 'SIM' and opcao != 's':
+            opcao = False
+
+
+def escolhe_questao():
+    print('======== MENU DE OPÇÕES ========')
+    print('1 - QUESTÃO 1')
+    print('2 - QUESTÃO 2')
+    opcao = int(input('Escolha uma das opções acima: '))
+    if opcao == 1:
+        menu_ques1()
+    elif opcao == 2:
+        menu_quest2()
+    else:
+        print('Opção inválida!')
+
+
 if __name__ == '__main__':
-    menu()
+    escolhe_questao()

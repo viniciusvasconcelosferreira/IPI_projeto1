@@ -3,6 +3,7 @@ from __future__ import division
 
 import cv2 as cv
 import numpy as np
+import argparse
 
 """
 As quatro máscaras que serão utilizadas para o filtro Laplaciano:
@@ -83,3 +84,12 @@ def gradiente(imagem):
             nova_imagem[i, j] = gx
 
     return nova_imagem
+
+
+def ajuste_gama(image, gama):
+    # construir uma tabela de pesquisa mapeando os valores de pixel [0, 255] para
+    # ajustar seus valores gama
+    invGamma = 1.0 / gama
+    table = np.array([((i / 255.0) ** invGamma) * 255 for i in np.arange(0, 256)]).astype("uint8")
+    # aplique a correção de gama usando a tabela de pesquisa
+    return cv.LUT(image, table)
