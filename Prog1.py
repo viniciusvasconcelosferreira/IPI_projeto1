@@ -5,6 +5,10 @@ import numpy as np
 import histograma as hs
 
 
+def dec_int_mlh():
+    print('Em construção')
+
+
 def cub_int():
     print('Imagens disponiveis: car.png / crowd.png / test80.jpg / university.png')
     imagem_escolhida = input('Escolha uma das imagens disponiveis (digite o nome da imagem junto com a extensão): ')
@@ -18,6 +22,14 @@ def cub_int():
     funcao.imprime_imagem('Reducao bicubica', nova_imagem_reduzida)
     nova_imagem_ampliada = funcao.bicubico_ampliacao(imagem)
     funcao.imprime_imagem('Ampliacao bicubica', nova_imagem_ampliada)
+    nova_imagem_reduzida_gradiente = filtro.gradiente(nova_imagem_reduzida)
+    filtro.imprime_imagem('Gradiente', nova_imagem_reduzida_gradiente)
+    nova_imagem_ampliada_gradiente = filtro.gradiente(nova_imagem_ampliada)
+    filtro.imprime_imagem('Gradiente', nova_imagem_ampliada_gradiente)
+    cv.imshow("Reduzida / Gradiente", np.hstack([nova_imagem_reduzida, nova_imagem_reduzida_gradiente]))
+    cv.waitKey(0)
+    cv.imshow("Ampliada / Gradiente", np.hstack([nova_imagem_ampliada, nova_imagem_ampliada_gradiente]))
+    cv.waitKey(0)
 
 
 def dec_int():
@@ -30,9 +42,9 @@ def dec_int():
     imagem = cv.imread('imagens/' + imagem_escolhida)
     funcao.imprime_imagem('Original', imagem)
     nova_imagem_reduzida = funcao.vizinho_reducao(imagem)
-    funcao.imprime_imagem('Reducao por vizinho mais próximo', nova_imagem_reduzida)
+    funcao.imprime_imagem('Reducao por vizinho mais proximo', nova_imagem_reduzida)
     nova_imagem_ampliada = funcao.vizinho_ampliacao(nova_imagem_reduzida)
-    funcao.imprime_imagem('Ampliacao por vizinho mais próximo', nova_imagem_ampliada)
+    funcao.imprime_imagem('Ampliacao por vizinho mais proximo', nova_imagem_ampliada)
 
 
 def edge_improv_laplace():
@@ -88,9 +100,9 @@ def edge_improv_gradient():
         imagem_escolhida = input(
             'Digite novamente sua escolha de imagem (digite o nome da imagem junto com a extensão): ')
     imagem = cv.imread('imagens/' + imagem_escolhida)
-    # filtro.imprime_imagem('Original', imagem)
+    filtro.imprime_imagem('Original', imagem)
     nova_imagem = filtro.gradiente(imagem)
-    # filtro.imprime_imagem('Gradiente', nova_imagem)
+    filtro.imprime_imagem('Gradiente', nova_imagem)
     cv.imshow("Original / Gradiente", np.hstack([imagem, nova_imagem]))
     cv.waitKey(0)
 
@@ -148,7 +160,7 @@ def menu_ques1():
     elif opcao == 3:
         cub_int()
     elif opcao == 4:
-        print('Opção em construção!')
+        dec_int_mlh()
     else:
         print('Volte sempre!')
 
