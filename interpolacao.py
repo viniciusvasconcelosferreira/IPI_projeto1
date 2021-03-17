@@ -46,42 +46,48 @@ def vizinho_ampliacao(imagem):
 
 def bicubica_reducao(imagem):
     # Reduz a imagem usando a interpolação bicubica
-    nova_imagem = cria_nova_imagem(imagem.shape[0] / 2, imagem.shape[1] / 2)
+    nova_imagem = cria_nova_imagem(int(imagem.shape[0] / 2), int(imagem.shape[1] / 2))
 
     for i in range(nova_imagem.shape[0]):
         for j in range(nova_imagem.shape[1]):
             if j == nova_imagem.shape[1] - 1 and i != nova_imagem.shape[0] - 1:
                 # Borda direita
-                valor = int(imagem[i + i, j + j]) + int(imagem[i + i, j + j + 1]) + int(imagem[i + i, j + j + 1])
-                valor += int(imagem[i + i + 1, j + j]) + int(imagem[i + i + 1, j + j + 1]) + int(
+                valor = np.int_(imagem[i + i, j + j]) + np.int_(imagem[i + i, j + j + 1]) + np.int_(
+                    imagem[i + i, j + j + 1])
+                valor += np.int_(imagem[i + i + 1, j + j]) + np.int_(imagem[i + i + 1, j + j + 1]) + np.int_(
                     imagem[i + i + 1, j + j + 1])
-                valor += int(imagem[i + i + 2, j + j]) + int(imagem[i + i + 2, j + j + 1]) + int(
+                valor += np.int_(imagem[i + i + 2, j + j]) + np.int_(imagem[i + i + 2, j + j + 1]) + np.int_(
                     imagem[i + i + 2, j + j + 1])
-                valor /= 9
+                valor = np.true_divide(valor, 9)
             elif i == nova_imagem.shape[0] - 1 and j != nova_imagem.shape[1] - 1:
                 # Borda inferior
-                valor = int(imagem[i + i, j + j]) + int(imagem[i + i, j + j + 1]) + int(imagem[i + i, j + j + 2])
-                valor += int(imagem[i + i + 1, j + j]) + int(imagem[i + i + 1, j + j + 1]) + int(
+                valor = np.int_(imagem[i + i, j + j]) + np.int_(imagem[i + i, j + j + 1]) + np.int_(
+                    imagem[i + i, j + j + 2])
+
+                valor += np.int_(imagem[i + i + 1, j + j]) + np.int_(imagem[i + i + 1, j + j + 1]) + np.int_(
                     imagem[i + i + 1, j + j + 2])
-                valor += int(imagem[i + i + 1, j + j]) + int(imagem[i + i + 1, j + j + 1]) + int(
+                valor += np.int_(imagem[i + i + 1, j + j]) + np.int_(imagem[i + i + 1, j + j + 1]) + np.int_(
                     imagem[i + i + 1, j + j + 2])
-                valor /= 9
+                valor = np.true_divide(valor, 9)
             elif i == nova_imagem.shape[0] - 1 and j == nova_imagem.shape[1] - 1:
                 # Canto inferior direito
-                valor = int(imagem[i + i, j + j]) + int(imagem[i + i, j + j + 1]) + int(imagem[i + i, j + j + 1])
-                valor += int(imagem[i + i + 1, j + j]) + int(imagem[i + i + 1, j + j + 1]) + int(
+                valor = np.int_(imagem[i + i, j + j]) + np.int_(imagem[i + i, j + j + 1]) + np.int_(
+                    imagem[i + i, j + j + 1])
+                valor += np.int_(imagem[i + i + 1, j + j]) + np.int_(imagem[i + i + 1, j + j + 1]) + np.int_(
                     imagem[i + i + 1, j + j + 1])
-                valor += int(imagem[i + i + 1, j + j]) + int(imagem[i + i + 1, j + j + 1]) + int(
+                valor += np.int_(imagem[i + i + 1, j + j]) + np.int_(imagem[i + i + 1, j + j + 1]) + np.int_(
                     imagem[i + i + 1, j + j + 1])
-                valor /= 9
+                valor = np.true_divide(valor, 9)
             else:
                 # Todo o resto
-                valor = int(imagem[i + i, j + j]) + int(imagem[i + i, j + j + 1]) + int(imagem[i + i, j + j + 2])
-                valor += int(imagem[i + i + 1, j + j]) + int(imagem[i + i + 1, j + j + 1]) + int(
+                valor = np.int_(imagem[i + i, j + j]) + np.int_(imagem[i + i, j + j + 1]) + np.int_(
+                    imagem[i + i, j + j + 2])
+
+                valor += np.int_(imagem[i + i + 1, j + j]) + np.int_(imagem[i + i + 1, j + j + 1]) + np.int_(
                     imagem[i + i + 1, j + j + 2])
-                valor += int(imagem[i + i + 2, j + j]) + int(imagem[i + i + 2, j + j + 1]) + int(
+                valor += np.int_(imagem[i + i + 2, j + j]) + np.int_(imagem[i + i + 2, j + j + 1]) + np.int_(
                     imagem[i + i + 2, j + j + 2])
-                valor /= 9
+                valor = np.true_divide(valor, 9)
 
             nova_imagem[i, j] = valor
 

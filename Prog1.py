@@ -4,15 +4,26 @@ import filtros as filtro
 import numpy as np
 
 
+def cub_int():
+    print('Imagens disponiveis: car.png / crowd.png / test80.jpg / university.png')
+    imagem_escolhida = input('Escolha uma das imagens disponiveis (digite o nome da imagem junto com a extensão): ')
+    imagem = cv.imread('imagens/' + imagem_escolhida)
+    funcao.imprime_imagem('Original', imagem)
+    nova_imagem_reduzida = funcao.bicubica_reducao(imagem)
+    funcao.imprime_imagem('Reducao bicubica', nova_imagem_reduzida)
+    nova_imagem_ampliada = funcao.bicubico_ampliacao(imagem)
+    funcao.imprime_imagem('Ampliacao bicubica', nova_imagem_ampliada)
+
+
 def dec_int():
     print('Imagens disponiveis: car.png / crowd.png / test80.jpg / university.png')
     imagem_escolhida = input('Escolha uma das imagens disponiveis (digite o nome da imagem junto com a extensão): ')
     imagem = cv.imread('imagens/' + imagem_escolhida)
     funcao.imprime_imagem('Original', imagem)
     nova_imagem_reduzida = funcao.vizinho_reducao(imagem)
-    funcao.imprime_imagem('Redução por vizinho mais próximo', nova_imagem_reduzida)
-    nova_imagem_ampliada = funcao.vizinho_ampliacao(imagem)
-    funcao.imprime_imagem('Ampliação por vizinho mais próximo', nova_imagem_ampliada)
+    funcao.imprime_imagem('Reducao por vizinho mais próximo', nova_imagem_reduzida)
+    nova_imagem_ampliada = funcao.vizinho_ampliacao(nova_imagem_reduzida)
+    funcao.imprime_imagem('Ampliacao por vizinho mais próximo', nova_imagem_ampliada)
 
 
 def edge_improv_laplace():
@@ -99,7 +110,7 @@ def menu():
     elif opcao == 2:
         edge_improv()
     elif opcao == 3:
-        print('Opção em construção!')
+        cub_int()
     elif opcao == 4:
         print('Opção em construção!')
     else:
