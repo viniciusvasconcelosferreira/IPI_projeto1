@@ -3,7 +3,6 @@ from __future__ import division
 
 import cv2 as cv
 import numpy as np
-import argparse
 
 """
 As quatro máscaras que serão utilizadas para o filtro Laplaciano:

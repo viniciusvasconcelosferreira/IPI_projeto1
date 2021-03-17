@@ -2,6 +2,7 @@ import interpolacao as funcao
 import cv2 as cv
 import filtros as filtro
 import numpy as np
+import histograma as hs
 
 
 def cub_int():
@@ -98,19 +99,23 @@ def sub_menu():
     print('======== MENU DE FILTROS ========')
     print('1 - Laplaciano')
     print('2 - Gradiente')
+    print('3 - Sair')
     opcao = int(input('Escolha uma das opções acima: '))
 
-    while opcao < 1 or opcao > 2:
+    while opcao < 1 or opcao > 3:
         print('Opção Inválida!')
         print('======== MENU DE FILTROS ========')
         print('1 - Laplaciano')
         print('2 - Gradiente')
+        print('3 - Sair')
         opcao = int(input('Escolha novamente uma das opções acima: '))
 
     if opcao == 1:
         edge_improv_laplace()
     elif opcao == 2:
         edge_improv_gradient()
+    else:
+        print('Volte sempre!')
 
 
 def edge_improv():
@@ -123,15 +128,17 @@ def menu_ques1():
     print('2 - Filtro de aguçamento')
     print('3 - Interpolação cúbica')
     print('4 - Melhoramento da interpolação do vizinho mais próximo')
+    print('5 - Sair')
     opcao = int(input('Escolha uma das opções acima: '))
 
-    while opcao < 0 or opcao > 4:
+    while opcao < 0 or opcao > 5:
         print('Opção Inválida!')
         print('======== MENU DE OPÇÕES ========')
         print('1 - Interpolação por vizinho mais próximo')
         print('2 - Filtro de aguçamento')
         print('3 - Interpolação cúbica')
         print('4 - Melhoramento da interpolação do vizinho mais próximo')
+        print('5 - Sair')
         opcao = int(input('Escolha novamente uma das opções acima: '))
 
     if opcao == 1:
@@ -142,6 +149,8 @@ def menu_ques1():
         cub_int()
     elif opcao == 4:
         print('Opção em construção!')
+    else:
+        print('Volte sempre!')
 
 
 def menu_quest2():
@@ -167,6 +176,8 @@ def menu_quest2():
                        cv.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 3)
             cv.imshow("Imagens", np.hstack([imagem, adjusted]))
             cv.waitKey(0)
+        hs.equalizar_histograma(imagem)
+        hs.gerar_histograma(imagem)
         opcao = input('Deseja ver outra imagem?: ')
         if opcao != 'S' and opcao != 'Sim' and opcao != 'sim' and opcao != 'SIM' and opcao != 's':
             opcao = False
@@ -176,13 +187,23 @@ def escolhe_questao():
     print('======== MENU DE OPÇÕES ========')
     print('1 - QUESTÃO 1')
     print('2 - QUESTÃO 2')
+    print('3 - Sair')
     opcao = int(input('Escolha uma das opções acima: '))
+
+    while opcao < 1 or opcao > 3:
+        print('Opção Inválida!')
+        print('======== MENU DE OPÇÕES ========')
+        print('1 - QUESTÃO 1')
+        print('2 - QUESTÃO 2')
+        print('3 - Sair')
+        opcao = int(input('Escolha novamente uma das opções acima: '))
+
     if opcao == 1:
         menu_ques1()
     elif opcao == 2:
         menu_quest2()
     else:
-        print('Opção inválida!')
+        print('Volte sempre!')
 
 
 if __name__ == '__main__':
