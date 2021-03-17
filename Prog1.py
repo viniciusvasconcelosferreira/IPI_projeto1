@@ -7,6 +7,10 @@ import numpy as np
 def cub_int():
     print('Imagens disponiveis: car.png / crowd.png / test80.jpg / university.png')
     imagem_escolhida = input('Escolha uma das imagens disponiveis (digite o nome da imagem junto com a extensão): ')
+    while imagem_escolhida != 'car.png' and imagem_escolhida != 'crowd.png' and imagem_escolhida != 'university.png' and imagem_escolhida != 'test80.jpg':
+        print('Imagem digitada inválida!')
+        imagem_escolhida = input(
+            'Digite novamente sua escolha de imagem (digite o nome da imagem junto com a extensão): ')
     imagem = cv.imread('imagens/' + imagem_escolhida)
     funcao.imprime_imagem('Original', imagem)
     nova_imagem_reduzida = funcao.bicubica_reducao(imagem)
@@ -18,6 +22,10 @@ def cub_int():
 def dec_int():
     print('Imagens disponiveis: car.png / crowd.png / test80.jpg / university.png')
     imagem_escolhida = input('Escolha uma das imagens disponiveis (digite o nome da imagem junto com a extensão): ')
+    while imagem_escolhida != 'car.png' and imagem_escolhida != 'crowd.png' and imagem_escolhida != 'university.png' and imagem_escolhida != 'test80.jpg':
+        print('Imagem digitada inválida!')
+        imagem_escolhida = input(
+            'Digite novamente sua escolha de imagem (digite o nome da imagem junto com a extensão): ')
     imagem = cv.imread('imagens/' + imagem_escolhida)
     funcao.imprime_imagem('Original', imagem)
     nova_imagem_reduzida = funcao.vizinho_reducao(imagem)
@@ -29,6 +37,10 @@ def dec_int():
 def edge_improv_laplace():
     print('Imagens disponiveis: car.png / crowd.png / test80.jpg / university.png')
     imagem_escolhida = input('Escolha uma das imagens disponiveis (digite o nome da imagem junto com a extensão): ')
+    while imagem_escolhida != 'car.png' and imagem_escolhida != 'crowd.png' and imagem_escolhida != 'university.png' and imagem_escolhida != 'test80.jpg':
+        print('Imagem digitada inválida!')
+        imagem_escolhida = input(
+            'Digite novamente sua escolha de imagem (digite o nome da imagem junto com a extensão): ')
     imagem = cv.imread('imagens/' + imagem_escolhida)
     filtro.imprime_imagem('Original', imagem)
     nova_imagem_4_negativo = filtro.laplaciano(imagem, filtro.quatro_negativo)
@@ -70,6 +82,10 @@ def edge_improv_laplace():
 def edge_improv_gradient():
     print('Imagens disponiveis: car.png / crowd.png / test80.jpg / university.png')
     imagem_escolhida = input('Escolha uma das imagens disponiveis (digite o nome da imagem junto com a extensão): ')
+    while imagem_escolhida != 'car.png' and imagem_escolhida != 'crowd.png' and imagem_escolhida != 'university.png' and imagem_escolhida != 'test80.jpg':
+        print('Imagem digitada inválida!')
+        imagem_escolhida = input(
+            'Digite novamente sua escolha de imagem (digite o nome da imagem junto com a extensão): ')
     imagem = cv.imread('imagens/' + imagem_escolhida)
     # filtro.imprime_imagem('Original', imagem)
     nova_imagem = filtro.gradiente(imagem)
@@ -84,12 +100,17 @@ def sub_menu():
     print('2 - Gradiente')
     opcao = int(input('Escolha uma das opções acima: '))
 
+    while opcao < 1 or opcao > 2:
+        print('Opção Inválida!')
+        print('======== MENU DE FILTROS ========')
+        print('1 - Laplaciano')
+        print('2 - Gradiente')
+        opcao = int(input('Escolha novamente uma das opções acima: '))
+
     if opcao == 1:
         edge_improv_laplace()
     elif opcao == 2:
         edge_improv_gradient()
-    else:
-        print('Opção inválida!')
 
 
 def edge_improv():
@@ -98,12 +119,20 @@ def edge_improv():
 
 def menu_ques1():
     print('======== MENU DE OPÇÕES ========')
-    print('========    QUESTÃO 1   ========')
     print('1 - Interpolação por vizinho mais próximo')
     print('2 - Filtro de aguçamento')
     print('3 - Interpolação cúbica')
     print('4 - Melhoramento da interpolação do vizinho mais próximo')
     opcao = int(input('Escolha uma das opções acima: '))
+
+    while opcao < 0 or opcao > 4:
+        print('Opção Inválida!')
+        print('======== MENU DE OPÇÕES ========')
+        print('1 - Interpolação por vizinho mais próximo')
+        print('2 - Filtro de aguçamento')
+        print('3 - Interpolação cúbica')
+        print('4 - Melhoramento da interpolação do vizinho mais próximo')
+        opcao = int(input('Escolha novamente uma das opções acima: '))
 
     if opcao == 1:
         dec_int()
@@ -113,14 +142,9 @@ def menu_ques1():
         cub_int()
     elif opcao == 4:
         print('Opção em construção!')
-    else:
-        print('Opção inválida!')
 
 
 def menu_quest2():
-    # imagem_car = cv.imread('imagens/car.png')
-    # imagem_crowd = cv.imread('imagens/crowd.png')
-    # imagem_university = cv.imread('imagens/university.png')
     opcao = True
     while opcao:
         print('Imagens disponiveis: car.png / crowd.png / university.png')
