@@ -1,3 +1,12 @@
+"""
+Departamento de Ciência da Computação
+Universidade de Brasília - UnB
+Aluno: Vinicius Vasconcelos Ferreira
+Matrícula: 18/0043358
+Disciplina: Introdução ao Processamento de Imagens - IPI
+Prof.º: Bruno Macchiavello
+"""
+
 import interpolacao as funcao
 import cv2 as cv
 import filtros as filtro
