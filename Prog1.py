@@ -6,7 +6,22 @@ import histograma as hs
 
 
 def dec_int_mlh():
-    print('Em construção')
+    # a técnica de ‘slicing’ para redução
+    print('Imagens disponiveis: car.png / crowd.png / test80.jpg / university.png')
+    imagem_escolhida = input('Escolha uma das imagens disponiveis (digite o nome da imagem junto com a extensão): ')
+    while imagem_escolhida != 'car.png' and imagem_escolhida != 'crowd.png' and imagem_escolhida != 'university.png' and imagem_escolhida != 'test80.jpg':
+        print('Imagem digitada inválida!')
+        imagem_escolhida = input(
+            'Digite novamente sua escolha de imagem (digite o nome da imagem junto com a extensão): ')
+    imagem = cv.imread('imagens/' + imagem_escolhida)
+    nova_imagem_reduzida = imagem[::2, ::2]
+    nova_imagem_ampliada = nova_imagem_reduzida.repeat(2, axis=0).repeat(2, axis=1)
+    cv.imshow("Original", imagem)
+    cv.waitKey(0)
+    cv.imshow("Reduzida", nova_imagem_reduzida)
+    cv.waitKey(0)
+    cv.imshow("Ampliada", nova_imagem_ampliada)
+    cv.waitKey(0)
 
 
 def cub_int():
