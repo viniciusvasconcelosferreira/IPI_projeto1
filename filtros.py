@@ -48,9 +48,9 @@ def calcula_valor(imagem, mascara, x, y):
     for i in range(len(valores)):
         valor += np.uint8(valores[i])
     # valor /= 9
-    # TODO
+    # Filtro se baseia numa matriz 3x3
     valor = np.true_divide(valor, 9)
-    # TODO
+    # Valor máximo da intensidade atingida por um pixel qualquer
     valor += 255
     if np.any(valor < 0):
         return 0
